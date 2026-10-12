@@ -96,6 +96,13 @@ class Store:
         return self.conn.execute(
             "SELECT * FROM tasks WHERE status='waiting_human' AND updated < ?", (cut,)).fetchall()
 
+    def waiting_approval(self, older_than: float) -> list:
+        # R2-1（评审修复）：负责人忘审批 = 卡点不可见的另一半，看门狗需要可见性
+        cut = time.time() - older_than
+        return self.conn.execute(
+            "SELECT * FROM tasks WHERE status='waiting_approval' AND updated < ?",
+            (cut,)).fetchall()
+
     # ---------- 检查点 ----------
     def save_checkpoint(self, task_id: str, step: str, state: dict):
         self.conn.execute("INSERT INTO checkpoints VALUES (?,?,?,?)",
@@ -142,15 +149,26 @@ class Store:
         return row["v"] if row["v"] is not None else 0
 
     def write_config_cas(self, project: str, expected_version: int, data: dict) -> int:
-        """带版本号的 CAS 写入：expected_version 必须等于当前最新，否则拒绝。"""
-        if self.latest_version(project) != expected_version:
-            raise ConfigConflict(
-                f"版本冲突：期望基于 v{expected_version}，实际已到 v{self.latest_version(project)}")
-        version = expected_version + 1
-        self.conn.execute("INSERT INTO configs VALUES (?,?,?,?)",
-                          (project, version, json.dumps(data, ensure_ascii=False), time.time()))
-        self.conn.commit()
-        return version
+        """带版本号的 CAS 写入：expected_version 必须等于当前最新，否则拒绝。
+
+        R2-2（评审修复）：check 与 insert 包进 BEGIN IMMEDIATE 写事务——
+        SQLite 写锁串行化并发写入，杜绝两个并发 CAS 同 based-on 版本
+        都通过 check 的竞态（单机 CLI 串行下本不触发，但 CAS 语义不能自毁）。
+        """
+        self.conn.execute("BEGIN IMMEDIATE")
+        try:
+            latest = self.latest_version(project)
+            if latest != expected_version:
+                raise ConfigConflict(
+                    f"版本冲突：期望基于 v{expected_version}，实际已到 v{latest}")
+            version = expected_version + 1
+            self.conn.execute("INSERT INTO configs VALUES (?,?,?,?)",
+                              (project, version, json.dumps(data, ensure_ascii=False), time.time()))
+            self.conn.commit()
+            return version
+        except Exception:
+            self.conn.rollback()
+            raise
 
     def latest_config(self, project: str):
         v = self.latest_version(project)

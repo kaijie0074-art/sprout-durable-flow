@@ -34,4 +34,11 @@ def scan(base_dir, stale_seconds: float = 3600) -> dict:
         _emit(base_dir, "alert_still_waiting",
               {"task_id": task["task_id"], "step": task["current_step"]})
         alerts.append(task["task_id"])
-    return {"requeued": requeued, "alerts": alerts}
+    # R2-1（评审修复）：审批悬置同样告警——但绝不自动重入，
+    # 审批门不能被看门狗绕过（高危动作的放行只能来自人）。
+    approval_alerts = []
+    for task in store.waiting_approval(stale_seconds):
+        _emit(base_dir, "alert_approval_pending",
+              {"task_id": task["task_id"], "step": task["current_step"]})
+        approval_alerts.append(task["task_id"])
+    return {"requeued": requeued, "alerts": alerts, "approval_alerts": approval_alerts}
