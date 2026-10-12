@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+*.db
+*.db-wal
+*.db-shm
+demo/
+demo2/
+memory.txt
+logs/
+artifacts/
