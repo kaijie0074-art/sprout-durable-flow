@@ -22,6 +22,8 @@ import os
 import urllib.request
 from pathlib import Path
 
+INFLIGHT_SUFFIX = "#inflight"   # 派发边界 WAL 标记；与 engine.INFLIGHT_SUFFIX 同值
+
 
 class ServiceNotConfiguredError(RuntimeError):
     """外发服务未配置。信息包含配置指引。"""
@@ -63,6 +65,11 @@ class Journal:
     def has(self, service: str, action: str, key: str) -> bool:
         return bool(self.entries(service=service, action=action, key=key))
 
+    def mark_inflight(self, service: str, action: str, key: str):
+        """派发边界 WAL：外部效果发出前落账。崩溃后恢复据此识别
+        "结果不确定"（#inflight 存在而确认不存在），禁止自动重发。"""
+        self.append(service, action + INFLIGHT_SUFFIX, key, {"phase": "inflight"})
+
 
 def _post_json(url: str, payload: dict, timeout: int = 60) -> dict:
     req = urllib.request.Request(
@@ -86,6 +93,7 @@ class WeCom:
                 "客户消息通道未配置：请设置 WECOM_WEBHOOK_URL（企业微信群机器人 webhook）。"
                 "未配置时拒绝静默跳过外发副作用。"
             )
+        self.journal.mark_inflight(self.SERVICE, self.ACTION, key)
         _post_json(self.webhook, {"msgtype": "text", "text": {"content": text}})
         self.journal.append(self.SERVICE, self.ACTION, key, {"text": text})
 
@@ -104,6 +112,7 @@ class Renderer:
     def render(self, key: str, html: str):
         out = self.base / "artifacts" / "preview.html"
         out.parent.mkdir(parents=True, exist_ok=True)
+        self.journal.mark_inflight(self.SERVICE, self.ACTION, key)
         out.write_text(html, encoding="utf-8")
         self.journal.append(self.SERVICE, self.ACTION, key, {"file": str(out)})
 
@@ -129,6 +138,7 @@ class Signer:
         req = urllib.request.Request(
             self.url, data=json.dumps({"key": key, "artifact": artifact_path or ""}).encode("utf-8"),
             headers={"Content-Type": "application/json"})
+        self.journal.mark_inflight(self.SERVICE, self.ACTION, key)
         with urllib.request.urlopen(req, timeout=300) as resp:
             ipa = resp.read()
         out = self.base / "artifacts" / "app.ipa"
@@ -154,6 +164,7 @@ class StoreUpload:
                 "商店上传接口未配置：请设置 STORE_UPLOAD_URL。"
                 "未配置时拒绝静默跳过高危副作用。"
             )
+        self.journal.mark_inflight(self.SERVICE, self.ACTION, key)
         _post_json(self.url, {"key": key, "version": version})
         self.journal.append(self.SERVICE, self.ACTION, key, {"version": version})
 

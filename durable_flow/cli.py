@@ -1,7 +1,9 @@
 """命令行入口（baseline 与最终态共用同一命令面，构成回归对比）：
 
   run      --task T [--project P] [--crash-at STEP]   运行/恢复任务
-  approve  --task T --step ios_sign                    高危动作放行
+  approve  --task T --step ios_sign [--resolution R]   高危放行；UNCERTAIN 裁决
+                                                         R=assume_done（默认，不重发）
+                                                         R=resend（核实未送达，允许重发）
   confirm  --task T --reply "可以了"                    客户确认落库
   status   --task T                                    任务状态（JSON）
   audit    --task T                                    审计记录（JSON）
@@ -13,10 +15,9 @@ import json
 import sys
 from pathlib import Path
 
-from .engine import Engine
+from .engine import Engine, TaskBusyError
 from .store import ConfigConflict
 from .watchdog import scan
-
 
 def main(argv=None):
     parser = argparse.ArgumentParser(prog="durable_flow", description="长任务状态机执行器")
@@ -28,9 +29,11 @@ def main(argv=None):
     r.add_argument("--project", default="default-project")
     r.add_argument("--crash-at", default=None, help="在该步 execute 后、confirm 前 SIGKILL 自身")
 
-    a = sub.add_parser("approve", help="高危动作放行")
+    a = sub.add_parser("approve", help="高危动作放行 / 不确定结果裁决")
     a.add_argument("--task", required=True)
     a.add_argument("--step", required=True)
+    a.add_argument("--resolution", choices=["assume_done", "resend"], default="assume_done",
+                   help="UNCERTAIN 裁决：assume_done=已发生不重发；resend=未送达允许重发")
 
     c = sub.add_parser("confirm", help="客户确认（凭任务 ID，与原会话无关）")
     c.add_argument("--task", required=True)
@@ -55,9 +58,14 @@ def main(argv=None):
     eng = Engine(base)
 
     if args.cmd == "run":
-        out = eng.run(args.task, project=args.project, crash_at=args.crash_at)
+        try:
+            out = eng.run(args.task, project=args.project, crash_at=args.crash_at)
+        except TaskBusyError as e:
+            print(json.dumps({"ok": False, "error": "task_busy", "message": str(e)},
+                             ensure_ascii=False))
+            sys.exit(3)
     elif args.cmd == "approve":
-        out = eng.approve(args.task, args.step)
+        out = eng.approve(args.task, args.step, resolution=args.resolution)
     elif args.cmd == "confirm":
         out = eng.confirm_customer(args.task, args.reply)
     elif args.cmd == "status":

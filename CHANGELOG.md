@@ -1,6 +1,27 @@
 # 变更日志
 
-遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)。
+
+## [v1.1.0] - 2026-10-14
+
+深潜研究（docs/research/deep-dive-20261014.md，问题链 Q1–Q8 全部实验验证）：
+
+### 修复
+- **恰好一次窗口**（Q1 发现：7 执行步 ×「派发后、确认前」崩溃全部重放副作用）：适配器在
+  外部效果前落 `#inflight` 派发边界 WAL；恢复时「inflight 有、确认无」→ `waiting_approval`
+  + `UNCERTAIN` 审计，机器禁止自动重发；`approve --resolution assume_done|resend` 人工
+  裁决。崩溃矩阵 44 格 7 REPLAY → 51 格全 PASS（0 重放 0 丢失）。
+- **并发双执行者**（Q3 发现：probe-probe 竞态静默重复副作用）：`locks.py` per-task flock
+  单任务单执行者，后到进程 exit 3 `task_busy`；进程死亡内核自动释放锁。
+- **看门狗误重入**（Q4：活长跑任务误报率 1.0）：时间戳超时 ∧ 锁空闲才 requeue，
+  FP 1.0→0.0，TP 1.0 不漏；新增 `skip_requeue_locked` 事件。
+- **检查点重复**（Q1 附带发现）：`save_checkpoint` 按 (task_id, step) 幂等重写。
+
+### 新增
+- `durable_flow/dsl.py`：工作流 DSL 验证器（结构层 S1–S10 / 域层 D1–D7），
+  LLM 生成→状态机验证闭环的机器侧裁判。
+- 研究实验与数据 `evidence/deep-dive/`（崩溃注入矩阵、并发竞争、看门狗 FP、
+  真实 LLM 生成 DSL 的通过率/自修复/模型上限对照）。
+- 测试 13 → 28 项（test_uncertain_outcome / test_concurrency / test_dsl）。
 
 ## [v1.0.0] - 2026-10-13
 

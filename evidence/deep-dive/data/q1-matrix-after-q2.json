@@ -1,0 +1,774 @@
+{
+ "ts": "2026-10-14T01:30:40",
+ "cells": [
+  {
+   "step": "gen_config",
+   "point": "probe",
+   "verdict": "PASS",
+   "human_touches": 4,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "gen_config",
+   "point": "inflight_pre",
+   "verdict": "PASS",
+   "human_touches": 5,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "gen_config",
+   "point": "mid_exec",
+   "verdict": "PASS",
+   "human_touches": 5,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "gen_config",
+   "point": "post_exec",
+   "verdict": "PASS",
+   "human_touches": 4,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "gen_config",
+   "point": "post_idem",
+   "verdict": "PASS",
+   "human_touches": 4,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "gen_config",
+   "point": "post_audit",
+   "verdict": "PASS",
+   "human_touches": 4,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "gen_config",
+   "point": "post_ckpt",
+   "verdict": "PASS",
+   "human_touches": 4,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "render_preview",
+   "point": "probe",
+   "verdict": "PASS",
+   "human_touches": 4,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "render_preview",
+   "point": "inflight_pre",
+   "verdict": "PASS",
+   "human_touches": 5,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "render_preview",
+   "point": "mid_exec",
+   "verdict": "PASS",
+   "human_touches": 5,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "render_preview",
+   "point": "post_exec",
+   "verdict": "PASS",
+   "human_touches": 4,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "render_preview",
+   "point": "post_idem",
+   "verdict": "PASS",
+   "human_touches": 4,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "render_preview",
+   "point": "post_audit",
+   "verdict": "PASS",
+   "human_touches": 4,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "render_preview",
+   "point": "post_ckpt",
+   "verdict": "PASS",
+   "human_touches": 4,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "send_screenshot",
+   "point": "probe",
+   "verdict": "PASS",
+   "human_touches": 3,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "send_screenshot",
+   "point": "inflight_pre",
+   "verdict": "PASS",
+   "human_touches": 4,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "send_screenshot",
+   "point": "mid_exec",
+   "verdict": "PASS",
+   "human_touches": 4,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "send_screenshot",
+   "point": "post_exec",
+   "verdict": "PASS",
+   "human_touches": 3,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "send_screenshot",
+   "point": "post_idem",
+   "verdict": "PASS",
+   "human_touches": 3,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "send_screenshot",
+   "point": "post_audit",
+   "verdict": "PASS",
+   "human_touches": 3,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "send_screenshot",
+   "point": "post_ckpt",
+   "verdict": "PASS",
+   "human_touches": 3,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "android_build",
+   "point": "probe",
+   "verdict": "PASS",
+   "human_touches": 2,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "android_build",
+   "point": "inflight_pre",
+   "verdict": "PASS",
+   "human_touches": 3,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "android_build",
+   "point": "mid_exec",
+   "verdict": "PASS",
+   "human_touches": 3,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "android_build",
+   "point": "post_exec",
+   "verdict": "PASS",
+   "human_touches": 2,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "android_build",
+   "point": "post_idem",
+   "verdict": "PASS",
+   "human_touches": 2,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "android_build",
+   "point": "post_audit",
+   "verdict": "PASS",
+   "human_touches": 2,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "android_build",
+   "point": "post_ckpt",
+   "verdict": "PASS",
+   "human_touches": 2,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "ios_sign",
+   "point": "probe",
+   "verdict": "PASS",
+   "human_touches": 1,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "ios_sign",
+   "point": "inflight_pre",
+   "verdict": "PASS",
+   "human_touches": 2,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "ios_sign",
+   "point": "mid_exec",
+   "verdict": "PASS",
+   "human_touches": 2,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "ios_sign",
+   "point": "post_exec",
+   "verdict": "PASS",
+   "human_touches": 1,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "ios_sign",
+   "point": "post_idem",
+   "verdict": "PASS",
+   "human_touches": 1,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "ios_sign",
+   "point": "post_audit",
+   "verdict": "PASS",
+   "human_touches": 1,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "ios_sign",
+   "point": "post_ckpt",
+   "verdict": "PASS",
+   "human_touches": 1,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "build_submit_materials",
+   "point": "probe",
+   "verdict": "PASS",
+   "human_touches": 1,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "build_submit_materials",
+   "point": "inflight_pre",
+   "verdict": "PASS",
+   "human_touches": 2,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "build_submit_materials",
+   "point": "mid_exec",
+   "verdict": "PASS",
+   "human_touches": 2,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "build_submit_materials",
+   "point": "post_exec",
+   "verdict": "PASS",
+   "human_touches": 1,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "build_submit_materials",
+   "point": "post_idem",
+   "verdict": "PASS",
+   "human_touches": 1,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "build_submit_materials",
+   "point": "post_audit",
+   "verdict": "PASS",
+   "human_touches": 1,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "build_submit_materials",
+   "point": "post_ckpt",
+   "verdict": "PASS",
+   "human_touches": 1,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "upload_store",
+   "point": "probe",
+   "verdict": "PASS",
+   "human_touches": 0,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "upload_store",
+   "point": "inflight_pre",
+   "verdict": "PASS",
+   "human_touches": 1,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "upload_store",
+   "point": "mid_exec",
+   "verdict": "PASS",
+   "human_touches": 1,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "upload_store",
+   "point": "post_exec",
+   "verdict": "PASS",
+   "human_touches": 0,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "upload_store",
+   "point": "post_idem",
+   "verdict": "PASS",
+   "human_touches": 0,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "upload_store",
+   "point": "post_audit",
+   "verdict": "PASS",
+   "human_touches": 0,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "upload_store",
+   "point": "post_ckpt",
+   "verdict": "PASS",
+   "human_touches": 0,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "wait_customer_confirm",
+   "point": "wait_set",
+   "verdict": "PASS",
+   "human_touches": 4,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  },
+  {
+   "step": "wait_customer_confirm",
+   "point": "post_ckpt",
+   "verdict": "PASS",
+   "human_touches": 2,
+   "world_counts": {
+    "gen_config": 1,
+    "render_preview": 1,
+    "send_screenshot": 1,
+    "android_build": 1,
+    "ios_sign": 1,
+    "build_submit_materials": 1,
+    "upload_store": 1
+   }
+  }
+ ],
+ "summary": {
+  "PASS": 51
+ },
+ "total": 51
+}

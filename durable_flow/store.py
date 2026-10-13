@@ -105,6 +105,10 @@ class Store:
 
     # ---------- 检查点 ----------
     def save_checkpoint(self, task_id: str, step: str, state: dict):
+        """检查点按 (task_id, step) 幂等：崩溃于"checkpoint 后、游标前"再恢复
+        会重复确认同一步，重写而非追加，done_steps 不出现重复步。"""
+        self.conn.execute("DELETE FROM checkpoints WHERE task_id=? AND step=?",
+                          (task_id, step))
         self.conn.execute("INSERT INTO checkpoints VALUES (?,?,?,?)",
                           (task_id, step, json.dumps(state, ensure_ascii=False), time.time()))
         self.conn.commit()

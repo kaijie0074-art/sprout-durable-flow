@@ -11,6 +11,7 @@ import urllib.request
 from pathlib import Path
 
 from .store import Store
+from .locks import is_locked
 
 
 def _events_path(base_dir) -> Path:
@@ -44,6 +45,13 @@ def scan(base_dir, stale_seconds: float = 3600) -> dict:
     store = Store(Path(base_dir) / "durable.db")
     requeued, alerts = [], []
     for task in store.stale_running(stale_seconds):
+        # 单任务单执行者：锁被活进程持有 = 任务其实在跑（长步骤≠僵死），
+        # 不得误重入（误重入 = 双执行者 = 副作用重复）。锁空闲而状态
+        # running = 上次执行者已死（flock 随进程释放），可安全重入。
+        if is_locked(base_dir, task["task_id"]):
+            _emit(base_dir, "skip_requeue_locked",
+                  {"task_id": task["task_id"], "reason": "执行锁被活进程持有"})
+            continue
         store.update_task(task["task_id"], status="pending")
         store.audit(task["task_id"], "watchdog", "REQUEUE", "running 超时，重新入队")
         _emit(base_dir, "requeue", {"task_id": task["task_id"]})

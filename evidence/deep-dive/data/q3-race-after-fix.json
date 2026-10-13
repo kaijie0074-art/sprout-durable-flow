@@ -1,0 +1,22 @@
+{
+ "ts": "2026-10-14T01:34:00",
+ "returncodes": [
+  3,
+  0
+ ],
+ "world_counts": {
+  "gen_config": 1,
+  "render_preview": 1,
+  "send_screenshot": 1,
+  "android_build": 1,
+  "ios_sign": 1,
+  "build_submit_materials": 1,
+  "upload_store": 1
+ },
+ "duplicated_steps": {},
+ "verdict": "SERIALIZED",
+ "locked_errors": 0,
+ "final_status": "succeeded",
+ "stderr_p1": "",
+ "stderr_p2": ""
+}

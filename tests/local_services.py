@@ -19,6 +19,7 @@ class LocalWeCom:
         self.journal = journal
 
     def send(self, key, text):
+        self.journal.mark_inflight(self.SERVICE, self.ACTION, key)
         self.journal.append(self.SERVICE, self.ACTION, key, {"text": text})
 
     def sent(self, key):
@@ -35,6 +36,7 @@ class LocalRenderer:
     def render(self, key, html):
         out = self.base / "artifacts" / "preview.html"
         out.parent.mkdir(parents=True, exist_ok=True)
+        self.journal.mark_inflight(self.SERVICE, self.ACTION, key)
         out.write_text(html, encoding="utf-8")
         self.journal.append(self.SERVICE, self.ACTION, key, {"file": str(out)})
 
@@ -52,6 +54,7 @@ class LocalSigner:
     def sign(self, key, artifact_path=None):
         out = self.base / "artifacts" / "app.ipa"
         out.parent.mkdir(parents=True, exist_ok=True)
+        self.journal.mark_inflight(self.SERVICE, self.ACTION, key)
         out.write_bytes(b"PK\x07\x08signed-ipa")
         self.journal.append(self.SERVICE, self.ACTION, key, {"file": str(out)})
 
@@ -66,6 +69,7 @@ class LocalStoreUpload:
         self.journal = journal
 
     def upload(self, key, version):
+        self.journal.mark_inflight(self.SERVICE, self.ACTION, key)
         self.journal.append(self.SERVICE, self.ACTION, key, {"version": version})
 
     def uploaded(self, key):
