@@ -99,7 +99,7 @@ class Engine:
 
     def _maybe_crash(self, crash_at: str | None, step: str):
         if crash_at == step:
-            os.kill(os.getpid(), signal.SIGKILL)   # 模拟进程被杀：不给清理机会
+            os.kill(os.getpid(), signal.SIGKILL)   # 崩溃注入：不给清理机会
 
     def _snap(self, task, noop: bool = False) -> dict:
         return {

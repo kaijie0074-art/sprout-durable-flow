@@ -1,19 +1,27 @@
 """测试辅助：以子进程方式驱动 CLI（baseline 与最终态共用同一命令面，
-测试断言的接口完全一致，从而构成回归对比）。"""
+测试断言的接口完全一致，从而构成回归对比）。
+
+子进程注入 DURABLE_FLOW_SERVICES_MODULE=local_services（tests/ 内的本地
+执行后端），使崩溃恢复/幂等回归不依赖真实外发服务；产品代码默认真实
+HTTP 适配器（env-gated）。"""
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
-
 REPO = Path(__file__).resolve().parent.parent
+
 
 HIGH_RISK = ("send_screenshot", "ios_sign", "upload_store")
 
 
 def cli(base, *args):
+    env = dict(os.environ)
+    env["DURABLE_FLOW_SERVICES_MODULE"] = "local_services"
+    env["PYTHONPATH"] = str(Path(__file__).resolve().parent) + os.pathsep + env.get("PYTHONPATH", "")
     return subprocess.run(
         [sys.executable, "-m", "durable_flow.cli", "--base-dir", str(base), *map(str, args)],
-        capture_output=True, text=True, cwd=REPO)
+        capture_output=True, text=True, cwd=REPO, env=env)
 
 
 def jout(r) -> dict:

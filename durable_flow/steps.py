@@ -3,7 +3,7 @@
 每个步骤声明：risk 等级（normal / high / human_wait）与幂等探测锚点
 （service+action+key）。高危四类中的三类出现在本流水线：外发消息、
 签名、上传商店；pay_channel_fee 作为第四类风险等级保留定义（源文档
-2.3 审批门四类动作），本模拟流水线未排入。
+2.3 审批门四类动作），本流水线未排入。
 """
 from pathlib import Path
 

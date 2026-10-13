@@ -1,10 +1,13 @@
 """看门狗：扫描中断/超时任务，重新入队并出事件。
 
 无人值守窗口（夜间/周末）的基本可用性：跑挂的任务自动重入，
-卡住的人工等待超时告警推送到 IM（本模拟写 events.jsonl）。
+卡住的人工等待超时告警推送 IM（ALERT_WEBHOOK_URL，未配置时仅落
+events.jsonl 审计、不发送，并在返回中标注 degraded_alerts）。
 """
 import json
+import os
 import time
+import urllib.request
 from pathlib import Path
 
 from .store import Store
@@ -16,10 +19,25 @@ def _events_path(base_dir) -> Path:
     return p
 
 
-def _emit(base_dir, etype: str, payload: dict):
+def _emit(base_dir, etype: str, payload: dict, notify: bool = False) -> bool:
     with _events_path(base_dir).open("a", encoding="utf-8") as f:
         f.write(json.dumps({"ts": round(time.time(), 3), "type": etype, **payload},
                            ensure_ascii=False) + "\n")
+    if notify:
+        return _push_im(f"[durable_flow] {etype}: {json.dumps(payload, ensure_ascii=False)}")
+    return False
+
+
+def _push_im(text: str) -> bool:
+    """真实 IM 推送（企业微信群机器人 webhook）。返回是否已发送。"""
+    url = os.environ.get("ALERT_WEBHOOK_URL", "")
+    if not url:
+        return False
+    req = urllib.request.Request(
+        url, data=json.dumps({"msgtype": "text", "text": {"content": text}}).encode("utf-8"),
+        headers={"Content-Type": "application/json"})
+    with urllib.request.urlopen(req, timeout=15):
+        return True
 
 
 def scan(base_dir, stale_seconds: float = 3600) -> dict:
@@ -32,13 +50,15 @@ def scan(base_dir, stale_seconds: float = 3600) -> dict:
         requeued.append(task["task_id"])
     for task in store.waiting_human(stale_seconds):
         _emit(base_dir, "alert_still_waiting",
-              {"task_id": task["task_id"], "step": task["current_step"]})
+              {"task_id": task["task_id"], "step": task["current_step"]}, notify=True)
         alerts.append(task["task_id"])
     # R2-1（评审修复）：审批悬置同样告警——但绝不自动重入，
     # 审批门不能被看门狗绕过（高危动作的放行只能来自人）。
     approval_alerts = []
     for task in store.waiting_approval(stale_seconds):
         _emit(base_dir, "alert_approval_pending",
-              {"task_id": task["task_id"], "step": task["current_step"]})
+              {"task_id": task["task_id"], "step": task["current_step"]}, notify=True)
         approval_alerts.append(task["task_id"])
-    return {"requeued": requeued, "alerts": alerts, "approval_alerts": approval_alerts}
+    delivery = "im" if os.environ.get("ALERT_WEBHOOK_URL") else "audit-only(未配置 ALERT_WEBHOOK_URL)"
+    return {"requeued": requeued, "alerts": alerts, "approval_alerts": approval_alerts,
+            "alert_delivery": delivery}

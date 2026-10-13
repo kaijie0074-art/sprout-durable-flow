@@ -30,7 +30,7 @@ flowchart LR
         C --> F
         G --> B
     end
-    C -->|副作用| H["Mock 外部服务<br/>渲染/微信/签名机/商店后台"]
+    C -->|副作用| H["外部服务<br/>渲染(本地)/企业微信/签名机/商店后台（真实 HTTP）"]
 ```
 
 三段式步骤（源文档 2.3）：
@@ -74,7 +74,7 @@ durable_flow/
   store.py       # SQLite：任务表/检查点/幂等去重/审计/CAS 配置（WAL）
   engine.py      # 状态机执行器：三段式 + 审批门 + waiting_human + 故障注入
   steps.py       # 八步交付流水线（源文档 2.1）与幂等锚点
-  services.py    # Mock 外部服务：journal 副作用日志 + 幂等探测查询
+  services.py    # 外部副作用服务：真实 HTTP 适配器（env-gated）+ journal 副作用日志/幂等探测
   watchdog.py    # 超时任务重入 + 长等待告警事件
   cli.py         # run/approve/confirm/status/audit/watchdog/cas
 tests/           # 11 项回归（子进程真实 SIGKILL 注入）
@@ -87,4 +87,4 @@ docs/            # 问题报告 / 复现 / 调研 / 设计 / 覆盖 / 回归
 
 ## 声明
 
-**模拟项目**：为末龙科技 AI 应用工程师岗三大技术难题的工程化模拟（2026-10）。外部系统（渲染服务/微信/签名机/商店后台）全部为确定性本地 Mock；OpenClaw 仅作为交互层概念引用，本仓库实现的是与它解耦的执行层。
+**说明**：针对末龙科技 AI 应用工程师岗三大技术难题之问题①的工程化实现（2026-10）。外部副作用（客户消息/签名机/商店后台）走真实 HTTP 适配器（`WECOM_WEBHOOK_URL` / `SIGNER_URL` / `STORE_UPLOAD_URL`），未配置时显式报错拒绝静默跳过；渲染为本地产物。OpenClaw 仅作为交互层概念引用，本仓库实现的是与它解耦的执行层。
